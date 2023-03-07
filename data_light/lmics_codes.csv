@@ -1,0 +1,136 @@
+Country,Classification,Code
+Afghanistan,Low income,AF
+Albania,Upper middle income,AL
+Algeria,Upper middle income,DZ
+American Samoa,Upper middle income,AS
+Angola,Upper middle income,AO
+Armenia,Lower middle income,AM
+Azerbaijan,Upper middle income,AZ
+Bangladesh,Lower middle income,BD
+Belarus,Upper middle income,BY
+Belize,Upper middle income,BZ
+Benin,Low income,BJ
+Bhutan,Lower middle income,BT
+Bolivia,Lower middle income,BO
+Bosnia and Herzegovina,Upper middle income,BA
+Botswana,Upper middle income,BW
+Brazil,Upper middle income,BR
+Bulgaria,Upper middle income,BG
+Burkina Faso,Low income,BF
+Burundi,Low income,BI
+Cambodia,Low income,KH
+Cameroon,Lower middle income,CM
+Cape Verde,Lower middle income,CV
+Central African Republic,Low income,CF
+Chad,Low income,TD
+China,Upper middle income,CN
+Colombia,Upper middle income,CO
+Comoros,Low income,KM
+"Congo, Dem. Rep",Low income,CD
+"Congo, Rep.",Lower middle income,CG
+Costa Rica,Upper middle income,CR
+Côte d'Ivoire,Lower middle income,CI
+Cuba,Upper middle income,CU
+Djibouti,Lower middle income,DJ
+Dominica,Upper middle income,DM
+Dominican Republic,Upper middle income,DO
+Ecuador,Upper middle income,EC
+"Egypt, Arab Rep.",Lower middle income,EG
+El Salvador,Lower middle income,SV
+Eritrea,Low income,ER
+Ethiopia,Low income,ET
+Fiji,Upper middle income,FJ
+Gabon,Upper middle income,GA
+"Gambia, The",Low income,GM
+Georgia,Lower middle income,GE
+Ghana,Lower middle income,GH
+Grenada,Upper middle income,GD
+Guatemala,Lower middle income,GT
+Guinea,Low income,GN
+Guinea-Bisau,Low income,GW
+Guyana,Lower middle income,GY
+Haiti,Low income,HT
+Honduras,Lower middle income,HN
+India,Lower middle income,IN
+Indonesia,Lower middle income,ID
+"Iran, Islamic Rep.",Upper middle income,IR
+Iraq,Upper middle income,IQ
+Jamaica,Upper middle income,JM
+Jordan,Upper middle income,JO
+Kazakhstan,Upper middle income,KZ
+Kenya,Lower middle income,KE
+Kiribati,Lower middle income,KI
+"Korea, Dem Rep.",Low income,KP
+Kosovo,Lower middle income,XK
+Kyrgyz Republic,Lower middle income,KG
+Lao PDR,Lower middle income,LA
+Lebanon,Upper middle income,LB
+Lesotho,Lower middle income,LS
+Liberia,Low income,LR
+Libya,Upper middle income,LY
+"Macedonia, FYR",Upper middle income,MK
+Madagascar,Low income,MG
+Malawi,Low income,MW
+Malaysia,Upper middle income,MY
+Maldives,Upper middle income,MV
+Mali,Low income,ML
+Marshall Islands,Upper middle income,MH
+Mauritania,Lower middle income,MR
+Mauritius,Upper middle income,MU
+Mexico,Upper middle income,MX
+"Micronesia, Fed. Sts.",Lower middle income,FM
+Moldova,Lower middle income,MD
+Mongolia,Upper middle income,MN
+Montenegro,Upper middle income,ME
+Morocco,Lower middle income,MA
+Mozambique,Low income,MZ
+Myanmar,Lower middle income,MM
+Namibia,Upper middle income,NA
+Nepal,Low income,NP
+Nicaragua,Lower middle income,NI
+Niger,Low income,NE
+Nigeria,Lower middle income,NG
+Pakistan,Lower middle income,PK
+Palau,Upper middle income,PW
+Panama,Upper middle income,PA
+Papua New Guinea,Lower middle income,PG
+Paraguay,Upper middle income,PY
+Peru,Upper middle income,PE
+Philippines,Lower middle income,PH
+Romania,Upper middle income,RO
+Rwanda,Low income,RW
+Samoa,Lower middle income,WS
+Sao Tome and Principe,Lower middle income,ST
+Senegal,Lower middle income,SN
+Serbia,Upper middle income,RS
+Sierra Leone,Low income,SL
+Solomon Islands,Lower middle income,SB
+Somalia,Low income,SO
+South Africa,Upper middle income,ZA
+South Sudan,Low income,SS
+Sri Lanka,Lower middle income,LK
+St. Lucia,Upper middle income,LC
+St. Vincent and the Grenadines,Upper middle income,VC
+Sudan,Lower middle income,SD
+Suriname,Upper middle income,SR
+Swaziland,Lower middle income,SZ
+Syrian Arab Republic,Lower middle income,SY
+Tajikistan,Lower middle income,TJ
+Tanzania,Low income,TZ
+Thailand,Upper middle income,TH
+Timor-Leste,Lower middle income,TL
+Togo,Low income,TG
+Tonga,Upper middle income,TO
+Tunisia,Upper middle income,TN
+Turkey,Upper middle income,TR
+Turkmenistan,Upper middle income,TM
+Tuvalu,Upper middle income,TV
+Uganda,Low income,UG
+Ukraine,Lower middle income,UA
+Uzbekistan,Lower middle income,UZ
+Vanuatu,Lower middle income,VU
+Vietnam,Lower middle income,VN
+West Bank and Gaza,Lower middle income,PS
+"Yemen, Rep.",Lower middle income,YE
+Zambia,Lower middle income,ZM
+Zimbabwe,Low income,ZW
