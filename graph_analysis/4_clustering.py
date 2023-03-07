@@ -1,7 +1,7 @@
 import numpy as np
-from gensim.models import KeyedVectors
 import hdbscan
 from tqdm import tqdm
+import pickle
 
 import matplotlib
 matplotlib.use('TKAgg')
@@ -10,15 +10,12 @@ import matplotlib.pyplot as plt
 def get_clusters(journal):
 
     # Load the saved node2vec model
-    model = KeyedVectors.load('graph_analysis/embeddings/JAMA')
-
-    # Get the shape of the word vectors matrix
-    embedding_matrix = model.wv.vectors
+    tsne = np.load(f'graph_analysis/tSNE/{journal}.npy')
 
     clusterer = hdbscan.HDBSCAN(min_cluster_size=50)
 
     # fit the data
-    clusterer.fit(embedding_matrix)
+    clusterer.fit(tsne)
 
     labels = clusterer.labels_
 
@@ -37,7 +34,7 @@ def get_clusters(journal):
             # plot noise points in black
             col = [0, 0, 0, 1]
         class_member_mask = (labels == k)
-        xy = embedding_matrix[class_member_mask]
+        xy = tsne[class_member_mask]
         ax.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=tuple(col), markeredgecolor='k', markersize=14)
     ax.set_title(f"{journal} no. clusters found {n_clusters}")
 
@@ -52,16 +49,16 @@ def get_clusters(journal):
 
     # loop through the cluster labels and extract the data points for each cluster
     for cluster_label in cluster_labels:
-        cluster = embedding_matrix[labels == cluster_label]
+        cluster = tsne[labels == cluster_label]
         clusters.append(cluster)
 
     # save the clusters as a numpy array
-    np.save(f"graph_analysis/clusters/{journal}.npy", np.array(clusters))
-
+    # Save the list to a file
+    with open(f"graph_analysis/clusters/{journal}.pkl", 'wb') as f:
+        pickle.dump(clusters, f)
 
 # Main
-
-journal_names = ["BMJ", "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
+journal_names = ["BMJ", "JAMA"]#, "Lancet", "NEJM", "Nature", "PLOS"]
 
 for journal in tqdm(journal_names):
     get_clusters(journal)

@@ -24,7 +24,7 @@ def create_tSNE(journal):
     np.save(f"graph_analysis/tSNE/{journal}.npy", vector_tsne)
 
     # Plot the result
-    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(50, 50), dpi=400) 
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(30, 30), dpi=400) 
     ax.set_title(f"tSNE {journal}")
     ax.scatter(vector_tsne[:, 0], vector_tsne[:, 1])
     fig.savefig(f'graph_analysis/tSNE/{journal}_tsne.png')
