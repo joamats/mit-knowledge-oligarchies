@@ -26,6 +26,7 @@ def plot_labelled(journal, df_all, lmics_codes):
         
     # Add LMIC column
     df_journal['LMIC'] = df_journal.aff_country_code.apply(lambda x: is_lmic(x, lmics_codes))
+    df_journal.to_csv(f'graph_analysis/LMICs/{journal}_LMICs.csv', index=False)
 
     # Assign labels
     labels = df_journal['LMIC'].values
