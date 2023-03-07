@@ -24,7 +24,7 @@ def get_clusters(journal):
     print(f"Number of clusters found: {n_clusters}")
 
     # Plot
-    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(50, 50), dpi=400) 
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(30, 30), dpi=200) 
 
     unique_labels = set(labels)
     colors = [plt.cm.Spectral(each) for each in np.linspace(0, 1, len(unique_labels))]
