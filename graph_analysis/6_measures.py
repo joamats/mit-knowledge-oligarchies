@@ -1,5 +1,7 @@
 from node2vec import Node2Vec
 import networkx as nx
+import networkit as nk
+import networkx.algorithms.community as nx_comm
 import numpy as np
 from tqdm import tqdm
 
@@ -7,24 +9,33 @@ def graph_measures(journal):
 
     print(f"\n{journal} Graph Measures")
 
-    G = nx.read_graphml(f"graph_analysis/graphs/{journal}.graphml")
-    # Compute the clustering coefficient
-    cc = nx.average_clustering(G)
+    # Read graph from GraphML file
+    G = nk.graphio.readGraph(f"graph_analysis/graphs/{journal}.graphml", nk.Format.GraphML)
 
-    print(f"Clustering coefficient: {cc:.3f}")
+    # Compute clustering coefficient
+    cc = nk.globals.clustering(G)
 
-    # Compute the betweenness centrality
-    bc = nx.betweenness_centrality(G)
+    # Compute betweenness centrality
+    bc = nk.centrality.Betweenness(G)
+    bc_scores = bc.run().scores()
+
+    # save the betweenness centrality scores
+    np.save(f"graph_analysis/bc_scores/{journal}.npy", bc_scores)
 
     # Compute the average betweenness centrality of the whole graph
-    avg_bc = np.mean(list(bc.values()))
+    avg_bc = np.mean(list(bc_scores))
+    std_bc = np.std(list(bc_scores))
 
-    # Compute the standard deviation of the betweenness centralities of the whole graph --> Takes too long
-    std_bc = np.std(list(bc.values()))
+    G = nx.read_graphml(f"graph_analysis/graphs/{journal}.graphml")
 
-    print(f"Avg BC of the whole graph: {avg_bc:.3f}")
-    print(f"Std BC of the whole graph: {std_bc:.3f}")
+    mod = nx_comm.modularity(G, nx_comm.label_propagation_communities(G))
 
+
+    with open(f"graph_analysis/measures/{journal}.txt", "w") as f:
+        print(f"Clustering coefficient: {cc:.3f}", file=f)
+        print(f"Avg BC of the whole graph: {avg_bc:.3f}", file=f)
+        print(f"Std BC of the whole graph: {std_bc:.3f}", file=f)
+        print(f"Modularity: {mod:.3f}", file=f)
 
 # Main
 
