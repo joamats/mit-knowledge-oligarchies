@@ -41,7 +41,7 @@ def cluster_measures(journal):
     # save dataframe
     df.to_csv(f"graph_analysis/cluster_measures/{journal}.csv")
 
-journal_names = ["BMJ"]
+journal_names = ["BMJ", "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
 
 for journal in tqdm(journal_names):
     cluster_measures(journal)
