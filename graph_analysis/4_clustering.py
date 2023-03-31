@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 def get_clusters(journal):
 
     # Load the saved node2vec model
-    tsne = np.load(f'graph_analysis/tSNE/{journal}.npy')[500:, :]
+    tsne = np.load(f'graph_analysis/tSNE/{journal}.npy')
 
     clusterer = hdbscan.HDBSCAN(min_cluster_size=50)
 
@@ -59,7 +59,7 @@ def get_clusters(journal):
         pickle.dump(clusters, f)
 
 # Main
-journal_names = ["BMJ"]#, "JAMA"]#, "Lancet", "NEJM", "Nature", "PLOS"]
+journal_names = ["BMJ", "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
 
 for journal in tqdm(journal_names):
     get_clusters(journal)
