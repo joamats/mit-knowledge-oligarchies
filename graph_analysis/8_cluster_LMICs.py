@@ -1,27 +1,27 @@
 import pandas as pd
 from tqdm import tqdm
-import pickle
+import matplotlib
+matplotlib.use('TKAgg')
+import matplotlib.pyplot as plt
 
 def cluster_lmics(journal):
 
-    # read LMICs
-    df_lmic = pd.read_csv(f'graph_analysis/LMICs/{journal}_LMICs.csv')
-    print(f"Number of Authors: {df_lmic.shape}")
+    # read cluster measures
+    df = pd.read_csv(f'graph_analysis/cluster_measures/{journal}.csv')
 
-    # Read cluster with pickle
-    with open(f'graph_analysis/clusters/{journal}.pkl', 'rb') as f:
-        clusters = pickle.load(f)
+    # create 4 bins for quartils of the mean betweeness centrality of each cluster
+    df["bc_bin"] = pd.qcut(df.avg_bc, 4, labels=["q1", "q2", "q3", "q4"])
 
-    # count to total of authors in all clusters
-    counter = 0
-    for c in clusters:
-        counter += len(c)
-    
+    # calculate the percentage of LMICs in each bin
+    df_final = df.groupby("bc_bin").agg({"LMICs": "sum", "total": "sum"})
+    df_final["LMICs_perc"] = df_final.LMICs / df_final.total
 
-    print(f"Number of authors clusters: {counter}")
+    print(df_final)
 
 
-journal_names = ["BMJ"]#, "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
+
+
+journal_names = ["BMJ", "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
 
 for journal in tqdm(journal_names):
     cluster_lmics(journal)
