@@ -12,7 +12,7 @@ def get_clusters(journal):
     # Load the saved node2vec model
     tsne = np.load(f'graph_analysis/tSNE/{journal}.npy')
 
-    clusterer = hdbscan.HDBSCAN(min_cluster_size=50)
+    clusterer = hdbscan.HDBSCAN(min_cluster_size=10)
 
     # fit the data
     clusterer.fit(tsne)

@@ -31,7 +31,7 @@ def cluster_measures(journal):
 
     # create empty dataframe to accomodate the average betweenness centrality score for each cluster, mean and std
     df = pd.DataFrame(columns=["total",
-                               "LMICs", "HICs", "Unknown",
+                               "LMICs", "LMICs_perc","HICs", "Unknown",
                                "avg_bc", "std_bc", "median_bc", "min_bc", "max_bc", "q1_bc", "q3_bc"])
 
     # iterate through the clusters
@@ -43,7 +43,9 @@ def cluster_measures(journal):
         df.loc[i, "total"] = len(cluster_bc_scores)
 
         # create list from the indexes of the LMICs
-        df.loc[i, "LMICs"] = len([node for node in nodes if node in lmics])
+        n_lmic = [node for node in nodes if node in lmics]
+        df.loc[i, "LMICs"] = len(n_lmic)
+        df.loc[i, "LMICs_perc"] = len(n_lmic) / len(cluster_bc_scores)
         df.loc[i, "HICs"] = len([node for node in nodes if node in hics])
         df.loc[i, "Unknown"] = len([node for node in nodes if node in unknw])
 
