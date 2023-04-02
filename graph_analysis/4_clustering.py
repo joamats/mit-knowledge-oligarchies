@@ -42,7 +42,7 @@ def get_clusters(journal):
 
     # Get the clusters to save them
     # get the unique labels (excluding noise points)
-    cluster_labels = np.unique(labels[labels != -1])
+    cluster_labels = np.unique(labels)
 
     # create an empty list to hold the cluster arrays
     clusters = []
@@ -59,7 +59,7 @@ def get_clusters(journal):
         pickle.dump(clusters, f)
 
 # Main
-journal_names = ["BMJ", "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
+journal_names = ["BMJ"]#, "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
 
 for journal in tqdm(journal_names):
     get_clusters(journal)
