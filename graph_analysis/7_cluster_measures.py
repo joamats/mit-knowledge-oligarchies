@@ -17,7 +17,7 @@ def cluster_measures(journal):
     print(f"Number of clusters: {len(clusters)}")
 
     # Load bc scores
-    bc_scores = np.load(f"graph_analysis/bc_scores/{journal}.npy")[:500]
+    bc_scores = np.load(f"graph_analysis/bc_scores/{journal}.npy")
     print(f"Number of bc scores: {len(bc_scores)}")
 
     # create empty dataframe to accomodate the average betweenness centrality score for each cluster, mean and std
