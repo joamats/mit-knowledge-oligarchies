@@ -59,7 +59,7 @@ def get_clusters(journal):
         pickle.dump(clusters, f)
 
 # Main
-journal_names = ["BMJ"]#, "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
+journal_names = ["BMJ", "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
 
 for journal in tqdm(journal_names):
     get_clusters(journal)

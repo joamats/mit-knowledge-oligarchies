@@ -21,7 +21,7 @@ def cluster_measures(journal):
     print(f"Number of bc scores: {len(bc_scores)}")
 
     # create empty dataframe to accomodate the average betweenness centrality score for each cluster, mean and std
-    df = pd.DataFrame(columns=["avg_bc", "std_bc", "median_bc", "min_bc", "max_bc", "q1_bc", "q3_bc"])
+    df = pd.DataFrame(columns=["number","avg_bc", "std_bc", "median_bc", "min_bc", "max_bc", "q1_bc", "q3_bc"])
 
     # iterate through the clusters
     for i, cluster in enumerate(clusters):
@@ -30,6 +30,7 @@ def cluster_measures(journal):
         cluster_bc_scores = bc_scores[nodes]
 
         # save the agg metrics for betweenness centrality score for the cluster
+        df.loc[i, "number"] = len(cluster_bc_scores)
         df.loc[i, "avg_bc"] = np.mean(cluster_bc_scores)
         df.loc[i, "std_bc"] = np.std(cluster_bc_scores)
         df.loc[i, "median_bc"] = np.median(cluster_bc_scores)
