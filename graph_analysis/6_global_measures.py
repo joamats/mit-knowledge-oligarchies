@@ -39,6 +39,7 @@ def graph_measures(journal):
         print(f"Std BC of the whole graph: {std_bc:.3f}", file=f)
         print(f"95% CI of the whole graph: {avg_bc - ci:.3f} - {avg_bc + ci:.3f}", file=f)
         print(f"Modularity: {mod:.3f}", file=f)
+        print(f"Number of nodes: {len(G.nodes)}", file=f)
 
 # Main
 
