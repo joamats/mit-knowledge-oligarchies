@@ -25,6 +25,8 @@ def graph_measures(journal):
     # Compute the average betweenness centrality of the whole graph
     avg_bc = np.mean(list(bc_scores))
     std_bc = np.std(list(bc_scores))
+    # Compute 95% confidence interval
+    ci = 1.96 * std_bc / np.sqrt(len(bc_scores))
 
     G = nx.read_graphml(f"graph_analysis/graphs/{journal}.graphml")
 
@@ -35,6 +37,7 @@ def graph_measures(journal):
         print(f"Clustering coefficient: {cc:.3f}", file=f)
         print(f"Avg BC of the whole graph: {avg_bc:.3f}", file=f)
         print(f"Std BC of the whole graph: {std_bc:.3f}", file=f)
+        print(f"95% CI of the whole graph: {avg_bc - ci:.3f} - {avg_bc + ci:.3f}", file=f)
         print(f"Modularity: {mod:.3f}", file=f)
 
 # Main
