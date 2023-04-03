@@ -17,14 +17,14 @@ def cluster_lmics(journal):
     df = df.drop(0)
 
     # create 4 bins for quartiles of the centrality scores
-    df["bc_bin"] = pd.qcut(df["Avg BC"].rank(method='first'), 4, labels=["q1", "q2", "q3", "q4"])
-    df["dc_bin"] = pd.qcut(df["Avg DC"].rank(method='first'), 4, labels=["q1", "q2", "q3", "q4"])
-    df["cc_bin"] = pd.qcut(df["Avg CC"].rank(method='first'), 4, labels=["q1", "q2", "q3", "q4"])
+    df["bc_bin"] = pd.qcut(df["Max BC"].rank(method='first'), 4, labels=["q1", "q2", "q3", "q4"])
+    df["dc_bin"] = pd.qcut(df["Max DC"].rank(method='first'), 4, labels=["q1", "q2", "q3", "q4"])
+    df["cc_bin"] = pd.qcut(df["Max CC"].rank(method='first'), 4, labels=["q1", "q2", "q3", "q4"])
     
     # calculate the percentage of LMICs in each bin
-    df_final_bc = df.groupby("bc_bin").agg({"total": ["mean", "sum"], "Avg BC": ["min", "max"], "LMICs_perc": ["median", "std"]})
-    df_final_dc = df.groupby("dc_bin").agg({"total": ["mean", "sum"], "Avg DC": ["min", "max"], "LMICs_perc": ["median", "std"]})
-    df_final_cc = df.groupby("cc_bin").agg({"total": ["mean", "sum"], "Avg CC": ["min", "max"], "LMICs_perc": ["median", "std"]})
+    df_final_bc = df.groupby("bc_bin").agg({"total": ["mean", "sum"], "Max BC": ["mean"], "LMICs_perc": ["median", "std"]})
+    df_final_dc = df.groupby("dc_bin").agg({"total": ["mean", "sum"], "Max DC": ["mean"], "LMICs_perc": ["median", "std"]})
+    df_final_cc = df.groupby("cc_bin").agg({"total": ["mean", "sum"], "Max CC": ["mean"], "LMICs_perc": ["median", "std"]})
     
     # compute confidence intervals for LMIC percentage
     df_final_bc["lmic_ci"] = 1.96 * (df_final_bc["LMICs_perc"]["std"] / np.sqrt(df_final_bc["total"]["sum"]))
@@ -40,8 +40,10 @@ def cluster_lmics(journal):
     # iterate over the 3 centrality measures
 
     score_types = ["bc", "dc", "cc"]
-    centr_measures = ["Avg BC", "Avg DC", "Avg CC"]
-    centr_labels = ["Betweenness Centrality", "Degree Centrality", "Closeness Centrality"]
+    centr_measures = ["Max BC", "Max DC", "Max CC"]
+    centr_labels = ["Cluster's Max. Betweenness Centrality",
+                    "Cluster's Max. Degree Centrality",
+                    "Cluster's Max. Closeness Centrality"]
 
     for i in range(3):
         if i == 0:

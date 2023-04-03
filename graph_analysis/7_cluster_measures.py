@@ -31,27 +31,36 @@ def cluster_measures(journal):
     # create empty dataframe to accomodate the average betweenness centrality score for each cluster, mean and std
     df = pd.DataFrame(columns=["total",
                                "LMICs", "LMICs_perc","HICs", "Unknown",
-                               "Avg BC", "Avg DC", "Avg CC"])
+                               "Avg BC", "Avg DC", "Avg CC",
+                               "Min BC", "Min DC", "Min CC",
+                               "Max BC", "Max DC", "Max CC"])
 
     # iterate through the clusters
     for i, cluster in enumerate(clusters):
 
         nodes = [node for node in cluster]
-        cluster_bc_scores = bc_scores[nodes]
         
-        df.loc[i, "total"] = len(cluster_bc_scores)
+        df.loc[i, "total"] = len(bc_scores[nodes])
 
         # create list from the indexes of the LMICs
         n_lmic = [node for node in nodes if node in lmics]
         df.loc[i, "LMICs"] = len(n_lmic)
-        df.loc[i, "LMICs_perc"] = len(n_lmic) / len(cluster_bc_scores)
+        df.loc[i, "LMICs_perc"] = len(n_lmic) / len(bc_scores[nodes])
         df.loc[i, "HICs"] = len([node for node in nodes if node in hics])
         df.loc[i, "Unknown"] = len([node for node in nodes if node in unknw])
 
         # save the agg metrics for betweenness centrality score for the cluster
-        df.loc[i, "Avg BC"] = np.mean(cluster_bc_scores)
+        df.loc[i, "Avg BC"] = np.mean(bc_scores[nodes])
         df.loc[i, "Avg DC"] = np.mean(dc_scores[nodes])
         df.loc[i, "Avg CC"] = np.mean(cc_scores[nodes])
+
+        df.loc[i, "Min BC"] = np.min(bc_scores[nodes])
+        df.loc[i, "Min DC"] = np.min(dc_scores[nodes])
+        df.loc[i, "Min CC"] = np.min(cc_scores[nodes])
+        
+        df.loc[i, "Max BC"] = np.max(bc_scores[nodes])
+        df.loc[i, "Max DC"] = np.max(dc_scores[nodes])
+        df.loc[i, "Max CC"] = np.max(cc_scores[nodes])
 
     # save dataframe
     df.to_csv(f"graph_analysis/cluster_measures/{journal}.csv")
