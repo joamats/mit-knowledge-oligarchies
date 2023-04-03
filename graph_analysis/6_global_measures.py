@@ -1,7 +1,5 @@
-from node2vec import Node2Vec
-import networkx as nx
+import pandas as pd
 import networkit as nk
-import networkx.algorithms.community as nx_comm
 import numpy as np
 from tqdm import tqdm
 
@@ -12,35 +10,56 @@ def graph_measures(journal):
     # Read graph from GraphML file
     G = nk.graphio.readGraph(f"graph_analysis/graphs/{journal}.graphml", nk.Format.GraphML)
 
+    N = G.numberOfNodes()
+
     # Compute clustering coefficient
-    cc = nk.globals.clustering(G)
+    clc = nk.globals.clustering(G)
+
+    # Compute degree centrality
+    dc = nk.centrality.DegreeCentrality(G)#, normalized=True)
+    dc_scores = dc.run().scores()
+
+    avg_dc = np.mean(list(dc_scores))
+    std_dc = np.std(list(dc_scores))
+    ci_dc = 1.96 * std_dc / np.sqrt(len(dc_scores))
+    np.save(f"graph_analysis/measures/dc_scores/{journal}.npy", dc_scores)
 
     # Compute betweenness centrality
-    bc = nk.centrality.Betweenness(G)
+    bc = nk.centrality.Betweenness(G)#, normalized=True)
     bc_scores = bc.run().scores()
 
-    # save the betweenness centrality scores
-    np.save(f"graph_analysis/bc_scores/{journal}.npy", bc_scores)
-
-    # Compute the average betweenness centrality of the whole graph
     avg_bc = np.mean(list(bc_scores))
     std_bc = np.std(list(bc_scores))
-    # Compute 95% confidence interval
-    ci = 1.96 * std_bc / np.sqrt(len(bc_scores))
+    ci_bc = 1.96 * std_bc / np.sqrt(len(bc_scores))
+    np.save(f"graph_analysis/measures/bc_scores/{journal}.npy", bc_scores)
 
-    G = nx.read_graphml(f"graph_analysis/graphs/{journal}.graphml")
+    # Compute closeness centrality
+    cc = nk.centrality.HarmonicCloseness(G)#, normalized=True)
+    cc_scores = cc.run().scores()
+    avg_cc = np.mean(list(cc_scores))
+    std_cc = np.std(list(cc_scores))
+    ci_cc = 1.96 * std_cc / np.sqrt(len(cc_scores))
+    np.save(f"graph_analysis/measures/cc_scores/{journal}.npy", cc_scores)
 
-    mod = nx_comm.modularity(G, nx_comm.label_propagation_communities(G))
+    # Compute modularity
+    communities = nk.community.detectCommunities(G)
+    mod = nk.community.Modularity().getQuality(communities, G)
 
+    # Create DataFrame with the measures
+    df = pd.DataFrame({"Clustering coefficient": [clc],
+                        "Avg DC": [avg_dc],
+                        "95% CI DC": [ci_dc],
+                        "Avg BC": [avg_bc],
+                        "95% CI BC": [ci_bc],
+                        "Avg CC": [avg_cc],
+                        "95% CI CC": [ci_cc],
+                        "Modularity": [mod],
+                        "Number of nodes": [N]})
+    
+    print(df)
 
-    with open(f"graph_analysis/measures/{journal}.txt", "w") as f:
-        print(f"Clustering coefficient: {cc:.3f}", file=f)
-        print(f"Avg BC of the whole graph: {avg_bc:.3f}", file=f)
-        print(f"Std BC of the whole graph: {std_bc:.3f}", file=f)
-        print(f"95% CI of the whole graph: {avg_bc - ci:.3f} - {avg_bc + ci:.3f}", file=f)
-        print(f"Modularity: {mod:.3f}", file=f)
-        print(f"Number of nodes: {len(G.nodes)}", file=f)
-
+    df.to_csv(f"graph_analysis/measures/{journal}.csv", index=False)
+    
 # Main
 
 journal_names = ["BMJ", "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]

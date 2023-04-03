@@ -1,5 +1,0 @@
-Clustering coefficient: 0.911
-Avg BC of the whole graph: 106430.012
-Std BC of the whole graph: 697439.481
-95% CI of the whole graph: 99581.050 - 113278.974
-Modularity: 0.607
