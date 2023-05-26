@@ -34,5 +34,4 @@ def compute_centrality_measures(journal):
 journal_names = ["BMJ", "JAMA", "Lancet", "NEJM", "Nature", "PLOS"]
 
 for journal in tqdm(journal_names):
-    print(journal)
     compute_centrality_measures(journal)
