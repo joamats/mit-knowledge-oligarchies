@@ -132,4 +132,4 @@ dmypy.json
 data/
 
 .vscode
-oligarchies/graphs
+oligarchies/graphs/
