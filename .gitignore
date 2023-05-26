@@ -132,5 +132,4 @@ dmypy.json
 data/
 
 .vscode
-
-.graphml
+oligarchies/graphs
